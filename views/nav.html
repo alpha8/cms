@@ -1,0 +1,46 @@
+<div class="navbar navbar-default navbar-fixed-top scroll-hide">
+    <div class="container-fluid top-bar">
+      <div class="pull-right">
+        <ul class="nav navbar-nav pull-right">
+          <li class="dropdown user hidden-xs">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+              <img width="34" height="34" src="/images/avator.jpg">
+              管理员
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="fa fa-user"></i>我的账户</a></li>
+              <li><a href="#"><i class="fa fa-gear"></i>账户设置</a></li>
+              <li><a href="#"><i class="fa fa-sign-out"></i>退出</a></li>
+            </ul>
+          </li>
+        </ul>
+    </div>
+    <a href="/" class="logo"><img src="/images/logo.jpg" width="80" height="50"/></a>
+  </div>
+
+  <div class="container-fluid main-nav clearfix">
+    <div class="nav-collapse">
+      <ul class="nav">        
+        <li <% if(nav=='index'){%> class="active"<%}%>>
+          <a href="/"><i class="fa fa-gear"></i>站点配置</a>
+        </li>
+        <li <% if(nav=='fm'){%> class="active"<%}%>>
+          <a href="/filemanager"><i class="fa fa-file-text"></i>文件管理</a>
+        </li>
+        <li <% if(nav=='article'){%> class="active"<%}%>>
+          <a href="/article"><i class="fa fa-file-text"></i>文章管理</a>
+        </li>
+        <li <% if(nav=='user'){%> class="active"<%}%>>
+          <a href="/user/add"><i class="fa fa-user"></i>用户管理</a>
+        </li>
+        <li <% if(nav=='timline'){%> class="active"<%}%>>
+          <a href="/timeline" target="_blank"><i class="fa fa-file-text"></i>日程管理</a>
+        </li>
+        <li <% if(nav=='help'){%> class="active"<%}%>>
+          <a href="#"><i class="fa fa-h-square"></i>帮助文档</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

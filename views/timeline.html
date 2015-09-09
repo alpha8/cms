@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="renderer" content="webkit">
+  <title>Timeline</title>  
+  <link rel='stylesheet' href='/libs/bootstrap/dist/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='/libs/font-awesome/css/font-awesome.min.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body class="container-fluid gray-bg">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="wrapper wrapper-content">
+        <div class="text-center float-e-margins">
+          <span>预览：</span>
+          <a href="#" class="btn btn-xs btn-primary" id="lightVersion">浅色</a>
+          <a href="#" class="btn btn-xs btn-primary" id="darkVersion">深色</a>
+          <a href="#" class="btn btn-xs btn-primary" id="leftVersion">布局切换</a>
+        </div>
+
+        <div class="ibox-content" id="ibox-content">
+          <div id="vertical-timeline" class="vertical-container light-timeline">
+            <div class="vertical-timeline-block">
+                <div class="vertical-timeline-icon navy-bg">
+                    <i class="fa fa-briefcase"></i>
+                </div>
+
+                <div class="vertical-timeline-content">
+                    <h2>会议</h2>
+                    <p>一虎一席CMS系统项目开工会</p>
+                    <a href="#" class="btn btn-sm btn-primary">更多信息</a>
+                    <span class="vertical-date">今天 <br><small>9月1日</small></span>
+                </div>
+            </div>
+
+            <div class="vertical-timeline-block">
+                <div class="vertical-timeline-icon blue-bg">
+                    <i class="fa fa-file-text"></i>
+                </div>
+
+                <div class="vertical-timeline-content">
+                    <h2>给志飞发送文档</h2>
+                    <p>发送《开发规范》</p>
+                    <a href="#" class="btn btn-sm btn-success"> 下载文档 </a>
+                    <span class="vertical-date">今天 <br><small>9月1日</small></span>
+                </div>
+            </div>
+
+            <div class="vertical-timeline-block">
+                <div class="vertical-timeline-icon lazur-bg">
+                    <i class="fa fa-coffee"></i>
+                </div>
+
+                <div class="vertical-timeline-content">
+                    <h2>喝咖啡休息</h2>
+                    <p>喝咖啡啦，啦啦啦~~</p>
+                    <a href="#" class="btn btn-sm btn-info">更多</a>
+                    <span class="vertical-date"> 昨天 <br><small>8月31日</small></span>
+                </div>
+            </div>
+
+            <div class="vertical-timeline-block">
+                <div class="vertical-timeline-icon lazur-bg">
+                    <i class="fa fa-user-md"></i>
+                </div>
+
+                <div class="vertical-timeline-content">
+                    <h2>公司年会</h2>
+                    <p>啦啦啦~~</p>
+                    <span class="vertical-date">前天 <br><small>8月30日</small></span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include footer.html %>
+  <script>
+    $(document).ready(function(){
+      $("#lightVersion").click(function(a){
+        a.preventDefault();
+        $("#ibox-content").removeClass("ibox-content");
+        $("#vertical-timeline").removeClass("dark-timeline");
+        $("#vertical-timeline").addClass("light-timeline");
+      });
+      $("#darkVersion").click(function(a){
+        a.preventDefault();
+        $("#ibox-content").addClass("ibox-content");
+        $("#vertical-timeline").removeClass("light-timeline");
+        $("#vertical-timeline").addClass("dark-timeline");
+      });
+      $("#leftVersion").click(function(a){
+        a.preventDefault();
+        $("#vertical-timeline").toggleClass("center-orientation");
+      });
+    });
+</script>  
+</body>
+</html>
