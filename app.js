@@ -8,6 +8,7 @@ var ejs = require('ejs');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var editor = require('./routes/editor');
 
 var app = express();
 
@@ -21,12 +22,13 @@ app.engine('.html', ejs.__express);
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/user', users);
+app.use('/editor', editor);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -59,4 +61,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.locals.moment = require('moment');
 module.exports = app;

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Nav</title>
+  <%- include ../head.html %>
+</head>
+<body ng-app="Yihu">
+  <div class="container-fluid">
+    <div class="row" ng-controller="NavbarCtrl">
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <div class="navbar-brand" href="#">一虎一席</div>
+        </div>
+        <div class="collapse navbar-collapse">
+          <div class="nav navbar-nav">
+            <li ng-repeat="item in navbar" class="dropdown">
+              <a href="{{item.link}}" class="dropdown-toggle" data-toggle="dropdown">{{item.label}} <b class="caret" ng-show="item.children.length>0"></b></a>
+              <ul class="dropdown-menu menu-top" ng-show="item.children.length>0">
+                <li ng-repeat="subItem in item.children" class="dropdown-submenu">
+                  <a href="{{subItem.link}}" tab-index="-1">{{subItem.label}}</a>
+                  <ul ng-show="subItem.children.length>0" class="dropdown-menu">
+                    <li ng-repeat="node in subItem.children">
+                      <a href="{{node.link}}">{{node.label}}</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <%- include ../footer.html %>
+</body>
+</html>

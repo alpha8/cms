@@ -11,6 +11,7 @@ $(".navbar.scroll-hide").mouseover(function() {
     });
   }), 150);
 });
+
 $(function() {
   var delta = 50, lastScrollTop = 0;
   return $(window).scroll(function(event) {
@@ -26,3 +27,14 @@ $(function() {
     lastScrollTop = st;
   });
 });
+
+function animationHover(o,e){
+    o=$(o);
+    o.hover(function(){
+        o.addClass("animated "+e);
+    },function(){
+        window.setTimeout(function(){
+            o.removeClass("animated "+e);
+        },2e3);
+    });
+}

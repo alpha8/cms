@@ -19,14 +19,27 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "~1.4.7",
+    "angular-bootstrap": "~0.14.3",
+    "angular-route": "~1.4.7",
+    "animate.css": "~3.4.0",
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
     "free-jqgrid": "~4.9.2",
     "iCheck": "icheck#~1.0.2",
+    "jquery_lazyload": "jquery.lazyload#~1.9.7",
     "jquery-validation": "jquery.validation#~1.14.0",
     "jquery.steps": "~1.1.0",
     "kindeditor": "*",
     "laydate-v1.1": "http://res.sentsin.com/download/laydate-v1.1.zip",
-    "zTree": "~3.5.18"
+    "zTree": "~3.5.18",
+    "respond": "Respond#~1.4.2",
+    "html5shiv": "~3.7.3",
+    "angular-ui-router": "~0.2.15",
+    "angular-bindonce": "~0.3.3",
+    "angular-translate": "~2.8.1",
+    "angular-translate-loader-url": "~2.8.1",
+    "angular-cookies": "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-cookies.js",
+    "angular-translate-storage-cookie": "~2.8.1"
   }
 }

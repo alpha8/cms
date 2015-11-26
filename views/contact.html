@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>客户管理</title>
+  <link rel='stylesheet' href='/libs/bootstrap/dist/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='/libs/font-awesome/css/font-awesome.min.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body class="gray-bg">
+  <%- include inc/nav.html %>
+  <div class="container-fluid animated fadeInRight" style="margin-top:120px;">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="ibox">
+          <div class="ibox-content">
+            <span class="small pull-right">最后更新：<i class="fa fa-clock-o"></i>2015-09-12 12:30</span>
+            <h2>客户管理</h2>
+            <p>所有客户必须通知邮箱验证</p>
+            <form action="" method="POST" name="contactForm">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="查找客户">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button"><i class="fa fa-search"></i>搜索</button>
+                </span>
+              </div>
+              <div class="clients-list">
+                <ul class="nav nav-tabs">
+                  <span class="small pull-right"><%=user_total%>个客户</span>
+                  <li class="active">
+                    <a href="#tab-user" data-toggle="tab"><i class="fa fa-user"></i>联系人</a>
+                  </li>
+                  <li>
+                    <a href="#tab-company" data-toggle="tab"><i class="fa fa-briefcase"></i>公司</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div id="tab-user" class="tab-pane active">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover">
+                        <% if(users.length){ users.forEach(function(item, index){%>
+                        <tr>
+                          <td class="client-avatar"><img src="<%=item.avatar%>" alt=""></td>
+                          <td><a href="#contact-<%=index%>" data-toggle="tab" class="client-link"><%=item.name%></a></td>
+                          <td><%=item.company%></td>
+                          <td class="contact-type"><i class="fa <%if(item.auth_type=='email'){%>fa-envelope<%}%><%if(item.auth_type=='phone'){%>fa-phone<%}%>"></i></td>
+                          <td>
+                          <%if(item.auth_type=='email'){%><%=item.email%><%}%>
+                          <%if(item.auth_type=='phone'){%><%=item.phone%><%}%>
+                          </td>
+                          <td class="client-status">                                                  
+                            <% if(item.status=='0'){%><span class="label label-info">未验证</span><%}%>
+                            <% if(item.status=='1'){%><span class="label label-warning">等待验证</span><%}%>
+                            <% if(item.status=='2'){%><span class="label label-primary">已验证</span><%}%>
+                          </td>
+                        </tr>                
+                        <%})}%>
+                      </table>
+                    </div>
+                  </div>
+                  <div id="tab-company" class="tab-pane">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover">
+                        <% if(company.length){ company.forEach(function(item){%>
+                        <tr>                        
+                          <td><a data-toggle="tab" href="#company-1" class="client-link"><%=item.name%></a></td>
+                          <td><%=item.city%></td>
+                          <td><i class="fa fa-flag"></i><%=item.country%></td>
+                          <td class="client-status">                         
+                            <% if(item.status=='0'){%><span class="label label-info">未验证</span><%}%>
+                            <% if(item.status=='1'){%><span class="label label-warning">等待验证</span><%}%>
+                            <% if(item.status=='2'){%><span class="label label-primary">已验证</span><%}%>
+                          </td>
+                        </tr>
+                        <%})}%>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="ibox ">
+          <div class="ibox-content">
+            <div class="tab-content">
+              <div id="contact-0" class="tab-pane active">
+                <div class="row m-b-lg">
+                  <div class="col-lg-4 text-center">
+                    <h2>李彦宏</h2>
+
+                    <div class="m-b-sm">
+                      <img alt="image" class="img-circle" src="/images/avatar/robert-lee.jpg" style="width: 62px">
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <h3></h3>
+                    <p>
+                      李彦宏，百度公司创始人、董事长兼首席执行官，全面负责百度公司的战略规划和运营管理。
+                    </p>
+                    <p>
+                      1991年，李彦宏毕业于北京大学信息管理专业，随后前往美国布法罗纽约州立大学完成计算机科学硕士学位，先后担任道·琼斯公司高级顾问、《华尔街日报》网络版实时金融信息系统设计者，以及国际知名互联网企业——Infoseek公司资深工程师。李彦宏所持有的“超链分析”技术专利，是奠定整个现代搜索引擎发展趋势和方向的基础发明之一。
+                    </p>
+                    <br>
+                    <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送消息
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div id="contact-1" class="tab-pane">
+                <div class="row m-b-lg">
+                  <div class="col-lg-4 text-center">
+                    <h2>雷军</h2>
+
+                    <div class="m-b-sm">
+                      <img alt="image" class="img-circle" src="/images/avatar/leijun.jpg" style="width: 62px">
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <h3></h3>
+                    <p>
+                      雷军，金山软件和小米公司创始人。
+                    </p>
+                    <br>
+                    <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送消息
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div id="contact-2" class="tab-pane">
+                <div class="row m-b-lg">
+                  <div class="col-lg-4 text-center">
+                    <h2>马云</h2>
+
+                    <div class="m-b-sm">
+                      <img alt="image" class="img-circle" src="/images/avatar/mayun.jpg" style="width: 62px">
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <h3></h3>
+                    <p>
+                      马云， 阿里巴巴创始人。
+                    </p>
+                    <br>
+                    <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送消息
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+  <%- include inc/footer.html%>
+</body>
+</html>

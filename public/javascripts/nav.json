@@ -1,0 +1,69 @@
+[
+    {
+        "label": "产品管理",
+        "children": [
+            {
+                "label": "国画",
+                "children": [
+                    {"label": "纸本水墨","link":"#"},
+                    {"label": "书法","link":"#"},
+                    {"label": "绢本工笔","link":"#"},
+                    {"label": "纸本工笔","link":"#"}
+                ]
+            },
+            {
+                "label": "油画",
+                "children": [
+                    {"label": "布面油画","link":"#"},
+                    {"label": "纸面油画","link":"#"}
+                ]
+            },
+            {
+                "label": "水彩","link":"#",
+                "children": []
+            },
+            {
+                "label": "版画",
+                "children": [
+                    {"label": "木版","link":"#"},
+                    {"label": "丝网版","link":"#"},
+                    {"label": "藏书票","link":"#"},
+                    {"label": "石版","link":"#"}
+                ]
+            }
+        ]
+    },
+    {
+        "label": "客户管理",
+        "children": [
+            {
+                "label": "普通用户",
+                "children": [
+                    {"label": "基本信息","link":"#"}
+                ]
+            },
+            {
+                "label": "大客户",
+                "children": []
+            }
+        ]
+    },
+    {
+        "label": "分类管理",
+        "children": [
+            {
+                "label": "大分类",
+                "link":"#"
+            },
+            {
+                "label": "专题",
+                "link":"#",
+                "children": []
+            }
+        ]
+    },
+    {
+        "label": "日志管理",
+        "children": []
+    }
+]

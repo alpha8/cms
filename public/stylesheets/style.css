@@ -1,10 +1,64 @@
+html,body{
+  margin:0;
+  padding:0;
+}
 body {
-  padding: 50px;
   font-family: "open sans","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 13px;
   color: #676a6c;
   overflow-x: hidden;
+  margin:0 auto;
 }
+h3, h4, h5 {
+    margin-top: 5px;
+    font-weight: 600;
+}
+h5 {
+    font-size: 12px;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 100;
+}
+a {color: #007aff; }
+a:hover {color: #666666; text-decoration: none; }
+::-webkit-scrollbar-track{background-color:#F5F5F5}
+::-webkit-scrollbar{width:6px;background-color:#F5F5F5}
+::-webkit-scrollbar-thumb{background-color:#999}
+
+.fontawesome-icon-list {
+  margin-top: 22px;
+}
+.fontawesome-icon-list .fa-hover a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  color: #222222;
+  line-height: 32px;
+  height: 32px;
+  padding-left: 10px;
+  border-radius: 4px;
+}
+.fontawesome-icon-list .fa-hover a .fa {
+  width: 32px;
+  font-size: 14px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 10px;
+}
+.fontawesome-icon-list .fa-hover a:hover {
+  background-color: #1d9d74;
+  color: #ffffff;
+  text-decoration: none;
+}
+.fontawesome-icon-list .fa-hover a:hover .fa {
+  font-size: 28px;
+  vertical-align: -6px;
+}
+.fontawesome-icon-list .fa-hover a:hover .text-muted {
+  color: #bbe2d5;
+}
+
 .gray-bg{background-color:#f3f3f4}
 .white-bg{background-color:#fff}
 .navy-bg{background-color:#1ab394;color:#fff}
@@ -31,19 +85,47 @@ body {
 .btn-primary.active[disabled],.btn-primary.disabled,.btn-primary.disabled.active,.btn-primary.disabled:active,.btn-primary.disabled:focus,.btn-primary.disabled:hover,.btn-primary[disabled],.btn-primary[disabled]:active,.btn-primary[disabled]:focus,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary.active,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:hover{background-color:#1dc5a3;border-color:#1dc5a3}
 .btn-success{background-color:#1c84c6;border-color:#1c84c6;color:#FFF}
 .btn-success.active,.btn-success:active,.btn-success:focus,.btn-success:hover,.open .dropdown-toggle.btn-success{background-color:#1a7bb9;border-color:#1a7bb9;color:#FFF}
-.logo img{ margin-top:5px;}
 
+.badge{background-color:#d1dade;color:#5e5e5e;font-family:'Open Sans';font-size:11px;font-weight:600;padding-bottom:4px;padding-left:6px;padding-right:6px;text-shadow:none}
+.badge-primary,.label-primary{background-color:#1ab394;color:#FFF}
+.badge-success,.label-success{background-color:#1c84c6;color:#FFF}
+.badge-warning,.label-warning{background-color:#f8ac59;color:#FFF}
+.badge-warning-light,.label-warning-light{background-color:#f8ac59;color:#fff}
+.badge-danger,.label-danger{background-color:#ed5565;color:#FFF}
+.badge-info,.label-info{background-color:#23c6c8;color:#FFF}
+.badge-inverse,.label-inverse{background-color:#262626;color:#FFF}
+.badge-white,.label-white{background-color:#FFF;color:#5E5E5E}
+.badge-disable,.label-white{background-color:#2A2E36;color:#8B91A0}
+
+.clients-list table tr td {
+  height: 46px;
+  vertical-align: middle;
+  border: none;
+}
+
+.logo img{ margin-top:5px;}
 i[class^="fa"]{
-  width: 32px;
   font-size: 16px;
   display: inline-block;
   text-align: center;
-  margin-right: 10px;
+  margin-right: 5px;
   vertical-align: middle;
   -webkit-transition: all 0.12s;
   -moz-transition: all 0.12s;
   transition: all 0.12s;
 }
+.ibox {
+    clear: both;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding: 0;
+}
+.ibox-content{background-color:#fff;color:inherit;padding:15px 20px 20px;border-color:#e7eaec;border-image:none;border-style:solid solid none;border-width:1px 0}
+.container-fluid.main-nav li.active{
+  background-color: white;
+}
+
+/** 导航 */
 .navbar .container-fluid.main-nav .nav-collapse .nav > li {
   float: none;
   display: inline-block;
@@ -73,30 +155,47 @@ i[class^="fa"]{
   top: -60px; 
 }
 .nav>li.active{border-left:4px solid #19aa8d;background:#293846}
-.ibox {
-    clear: both;
-    margin-bottom: 25px;
-    margin-top: 0;
-    padding: 0;
+.nav-tabs>li.active>a,.nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover{
+  -moz-border-bottom-colors:none;
+  -moz-border-left-colors:none;
+  -moz-border-right-colors:none;
+  -moz-border-top-colors:none;
+  background:0 0;
+  border-color:#ddd #ddd rgba(0,0,0,0);
+  border-bottom:#f3f3f4;
+  border-image:none;
+  border-style:solid;
+  border-width:1px;
+  color:#555;
+  cursor:default
 }
-.ibox-content{background-color:#fff;color:inherit;padding:15px 20px 20px;border-color:#e7eaec;border-image:none;border-style:solid solid none;border-width:1px 0}
-h3, h4, h5 {
-    margin-top: 5px;
-    font-weight: 600;
-}
-h5 {
-    font-size: 12px;
-}
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 100;
-}
-::-webkit-scrollbar-track{background-color:#F5F5F5}
-::-webkit-scrollbar{width:6px;background-color:#F5F5F5}
-::-webkit-scrollbar-thumb{background-color:#999}
+.nav.nav-tabs li{background:0 0;border:none}
+.nav-tabs>li>a{color:#A7B1C2;font-weight:600;padding:10px 20px 10px 25px}
+.nav-tabs>li>a:focus,.nav-tabs>li>a:hover{background-color:#e6e6e6;color:#676a6c}
 
-.container-fluid.main-nav li.active{
-  background-color: white;
+/** 客户管理 */
+.clients-list {
+    margin-top: 20px;
 }
+.client-avatar{
+  width: 42px;
+}
+.client-avatar img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+.client-link {
+  font-weight: 600;
+}
+.contact-type {
+  width: 20px;
+  color: #c1c3c4;
+}
+.client-status {
+    text-align: left;
+}
+/** 下拉菜单 */
 .dropdown-menu {
   margin-top: 0;
   border-radius: 0;
