@@ -1,0 +1,16 @@
+[
+  {
+    "id":1,
+    "userName":"alpha",
+    "gender":1,
+    "birthday":"1986-07-03",
+    "userType":2
+  },  
+  {
+    "id":4,
+    "userName":"Snooby",
+    "gender":1,
+    "birthday":"1990-11-11",
+    "userType":2
+  }
+]

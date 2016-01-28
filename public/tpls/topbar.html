@@ -1,0 +1,69 @@
+<div ng-controller="NavbarCtrl">
+  <nav class="navbar navbar-static-top topbar" role="navigation">
+    <div class="navbar-header">
+      <button class="btn btn-default btn-lg navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="fa fa-navicon"></span> 菜单
+      </button>
+      <a class="navbar-brand" ui-sref="{{logo.link}}" ng-bind="logo.text"></a>
+    </div>
+    <ul class="nav navbar-nav navbar-right navbar-top-links hidden-xs">
+      <li class="dropdown">
+        <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle count-info">
+          <i class="fa fa-bell"></i><span class="badge badge-primary" ng-bind="topbar.messages.total"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-alerts">
+          <li ng-repeat="msg in topbar.messages.list">
+            <a href="{{msg.link}}">
+              <div>
+                <i class="fa fa-fw {{msg.icon}}"></i>
+                {{msg.text}}
+                <span class="pull-right small" ng-bind="msg.time"></span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="{{topbar.messages.more.link}}">
+              <div class="text-center">
+                <strong>{{topbar.messages.more.text}} </strong><i class="fa fa-angle-right"></i>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle">
+          <i class="fa fa-bars"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li ng-repeat="item in topbar.setting">
+            <a href="{{item.link}}"><i class="fa fa-fw {{item.icon}}"></i>{{item.text}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="item in navbar" class="dropdown">
+          <a ui-sref="{{item.link}}" ng-if="item.link" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="{{item.icon}}" ng-if="item.icon"></span>&nbsp;{{item.label}} <b class="caret" ng-show="item.children.length>0"></b>
+          </a>
+          <a ng-if="!item.link" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="{{item.icon}}" ng-if="item.icon"></span>&nbsp;{{item.label}} <b class="caret" ng-show="item.children.length>0"></b>
+          </a>
+          <ul class="dropdown-menu menu-top" ng-show="item.children.length>0">
+            <li ng-repeat="subItem in item.children" class="dropdown-submenu">
+              <a ui-sref="{{subItem.link}}" ng-if="subItem.link" tab-index="-1">{{subItem.label}}</a>
+              <a ng-if="!subItem.link" tab-index="-1">{{subItem.label}}</a>
+              <ul ng-show="subItem.children.length>0" class="dropdown-menu">
+                <li ng-repeat="node in subItem.children">
+                  <a ui-sref="{{node.link}}" ng-if="node.link">{{node.label}}</a>
+                  <a ng-if="!node.link">{{node.label}}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

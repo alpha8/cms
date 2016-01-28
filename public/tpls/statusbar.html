@@ -1,0 +1,15 @@
+<nav class="navbar navbar-default navbar-fixed-bottom" id="statusbar">
+  <div class="navbar-header">
+    <a href="#" class="navbar-brand" ng-bind="statusbar.text"></a>
+  </div>
+  <div class="nav navbar-right">
+    <a href="#" ng-click="collapse()"><i class="fa {{statusbar.icon}}"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+  </div>
+  <div class="collapse navbar-collapse">
+    <div class="nav navbar-nav">
+      <li ng-repeat="item in items">
+        <a href="item.link" ng-bind="item.label"></a>
+      </li>
+    </div>
+  </div>
+</nav>

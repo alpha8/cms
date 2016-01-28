@@ -1,0 +1,44 @@
+[
+  {
+    "id":1,
+    "userName":"alpha",
+    "gender":1,
+    "birthday":"1986-07-03",
+    "userType":2
+  },
+  {
+    "id":2,
+    "userName":"Angela Baby",
+    "gender":0,
+    "birthday":"1990-10-03",
+    "userType":1
+  },
+  {
+    "id":3,
+    "userName":"李晨",
+    "gender":1,
+    "birthday":"1970-06-22",
+    "userType":1
+  },
+  {
+    "id":4,
+    "userName":"Snooby",
+    "gender":1,
+    "birthday":"1990-11-11",
+    "userType":2
+  },
+  {
+    "id":5,
+    "userName":"Mickey",
+    "gender":1,
+    "birthday":"1980-12-12",
+    "userType":1
+  },
+  {
+    "id":6,
+    "userName":"史瑞克",
+    "gender":1,
+    "birthday":"1977-11-12",
+    "userType":3
+  }
+]

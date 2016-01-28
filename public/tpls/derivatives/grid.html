@@ -1,0 +1,96 @@
+<div class="animated fadeInRight">
+  <div class="row search-area">
+    <div class="col-xs-8 col-md-9">
+      <div class="row">
+        <form class="form-horizontal" role="form" name="derivativesForm" >
+          <div class="col-xs-4 col-md-5">
+            <div class="form-group">
+              <label class="control-label hidden-xs hidden-sm col-md-4">商品名称：</label>
+              <div class="col-xs-12 col-md-8">
+                <input type="text" class="form-control" name="name" placeholder="商品名称" ng-model="derivatives.name">
+              </div>
+            </div>
+            <div class="hideSearchItems">
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">材质：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control" name="material" placeholder="材质" ng-model="derivatives.material">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">价格：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control fl w80" name="minPrice" placeholder="最低价" ng-model="derivatives.minPrice">
+                  <em class="fl spitter">--</em>
+                  <input type="text" class="form-control fl w80" name="maxPrice" placeholder="最高价" ng-model="derivatives.maxPrice">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">上架时间：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control fl w120" id="beginShelvesTime" name="beginShelvesTime" placeholder="上架起始" idate ng-model="derivatives.beginShelvesTime">
+                  <em class="fl spitter">--</em>
+                  <input type="text" class="form-control fl w120" id="endShelvesTime" name="endShelvesTime" placeholder="上架截止" idate ng-model="derivatives.endShelvesTime">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-5">
+            <div class="form-group">
+              <label class="control-label hidden-xs hidden-sm col-md-4">商品类别：</label>
+              <div class="col-xs-12 col-md-8">
+                <select class="form-control" name="category" ng-model="derivatives.category">
+                  <option value="">----全部分类----</option>
+                  <option ng-repeat="item in derivatives.categoryList" value="{{item.id}}">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="hideSearchItems">
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">艺术家：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control" name="author" placeholder="艺术家" ng-model="derivatives.author">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">状态：</label>
+                <div class="col-xs-12 col-md-8">
+                  <select class="form-control" name="states" ng-model="derivatives.states">
+                    <option value="">----全部----</option>
+                    <option ng-repeat="item in derivatives.commodityStatesList" value="{{item.id}}">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">发布时间：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control fl w120" id="beginCreateTime" name="beginCreateTime" placeholder="发布起始" idate ng-model="derivatives.beginCreateTime">
+                  <em class="fl spitter">--</em>
+                  <input type="text" class="form-control fl w120" id="endCreateTime" name="endCreateTime" placeholder="发布截止" idate ng-model="derivatives.endCreateTime">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-2">
+            <button class="btn btn-default" ng-click="search()"><i class="fa fa-search"></i>搜索</button>&nbsp;&nbsp;
+            <a href="javascript:;" ng-click="advancedSearch()">高级搜索</a>
+          </div>
+        </form>
+      </div>    
+    </div>
+
+    <div class="col-xs-4 col-md-3">
+      <div class="pull-right">
+        <div class="btn-group" role="group">
+          <a ui-sref=".addDerivativies" class="btn btn-default"><i class="fa fa-plus-square rotate180"></i>新增</a>
+          <a ng-click="remove()" class="btn btn-default"><i class="fa fa-trash"></i>删除</a>
+        </div>
+      </div>  
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <div ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns class="grid"></div>
+    </div>
+  </div>
+</div>

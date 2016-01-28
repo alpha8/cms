@@ -1,0 +1,28 @@
+<div class="animated fadeInRight">
+  <div class="row">
+   <div class="col-xs-6 col-md-7">
+      <div class="btn-group" role="group">
+        <a ui-sref=".addUser" class="btn btn-default"><i class="fa fa-user-plus"></i>新增</a>
+        <a ng-click="toggleFiltering()" class="btn btn-default"><i class="fa fa-search"></i>检索</a>
+        <a ng-click="lockUser()" class="btn btn-default"><i class="fa fa-lock"></i>锁定/解锁</a>
+        <a ng-click="deleteUser()" class="btn btn-default"><i class="fa fa-user-times"></i>删除</a>
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-md-5">
+      <div class="input-group" style="margin-right: 30px;">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        <input type="text" placeholder="搜索关键字" class="input form-control" ng-model="keyword">
+        <span class="input-group-btn">
+          <button class="btn btn-default" ng-click="search()">搜索</button>
+        </span>
+      </div>
+      <br/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <div ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns class="grid"></div>
+    </div>
+  </div>
+</div>

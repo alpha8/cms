@@ -1,0 +1,107 @@
+<div class="row animated fadeInRight">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a ng-click="discard()" href="javascript:;"><i class="backBtn fa fa-arrow-circle-left"></i></a>
+      <span class="panelTitle" ng-bind="ArticleForm.title"></span>
+    </div>
+    <div class="panel-body">
+      <form novalidate name="articleForm" class="form-horizontal" role="form">
+        <div class="form-group" ng-class="{'has-error': articleForm.title.$invalid && articleForm.title.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">标题：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="text" class="form-control" name="title" placeholder="文章标题" ng-model="article.title" required>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': articleForm.content.$invalid && articleForm.content.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">内容：</label>
+          <div class=" col-xs-7 col-md-8">
+            <textarea name="content" placeholder="发表的文章内容" id="editor" ng-bind-html="article.content | trustHtml" keditor data-config="options" required ng-model="article.contentBody">
+            </textarea>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': articleForm.author.$invalid && articleForm.author.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">作者：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="text" class="form-control" name="author" placeholder="作者" ng-model="article.author" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">文章图标：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="file" class="form-control" name="icon" placeholder="上传文章图标" ng-model="article.icon">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">标签：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="text" class="form-control" name="tags" placeholder="使用空格分隔不同标签" ng-model="article.tags">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">文章摘要：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="text" class="form-control" name="summary" placeholder="文章摘要" ng-model="article.summary">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">文章排序：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="number" class="form-control" name="sort" placeholder="排序值" ng-model="article.sort">
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': articleForm.category.$invalid && articleForm.category.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">类别：</label>
+          <div class=" col-xs-7 col-md-8">
+            <select class="form-control" name="category" required ng-model="article.category">
+              <option value="">----选择分类----</option>
+              <option ng-repeat="item in article.categoryList" value="{{item.id}}">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': articleForm.postTime.$invalid && articleForm.postTime.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">发布年份：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="text" class="form-control" name="postTime" idate id="postTime" placeholder="发布年份" ng-model="article.postTime" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">浏览数：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="number" class="form-control" name="pv" placeholder="浏览数" ng-model="article.pv">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">文章来源：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="text" class="form-control" name="source" placeholder="文章来源" ng-model="article.source">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">权限：</label>
+          <div class="col-xs-7 col-md-8">
+            <input type="radio" class="form-control" name="isPublic" icheck ng-model="article.isPublic">公开&nbsp;&nbsp;
+            <input type="radio" class="form-control" name="isPublic" icheck ng-model="article.isPublic">私有
+          </div>
+        </div>              
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">其它设置：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="checkbox" class="form-control" name="isOriginal" icheck ng-model="article.isOriginal">原创&nbsp;&nbsp;
+            <input type="checkbox" class="form-control" name="isTop" icheck ng-model="article.isTop">置顶&nbsp;&nbsp;
+            <input type="checkbox" class="form-control" name="isRecommend" icheck ng-model="article.isRecommend">推荐
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-4 col-xs-offset-2">
+            <button class="btn btn-primary" ng-click="submitForm()" ng-disabled="articleForm.$invalid">发表</button>
+            <button class="btn btn-primary" ng-click="saveForm()" ng-disabled="articleForm.$invalid">保存草稿</button>
+            <button class="btn btn-white" ng-click="discard()">取消</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="/libs/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="/libs/kindeditor/lang/zh-CN.js" type="text/javascript"></script>

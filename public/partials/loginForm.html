@@ -1,46 +1,41 @@
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <div class="panel-title">用户登录</div>
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-12">
-        <form action="{{formOption.action}}" class="form-horizontal" role="form" name="loginForm" ng-submit="signIn(loginForm.$valid)" ng-controller="UserLoginCtrl" method="POST" novalidate>
-          <div class="form-group" ng-class="{'has-error': loginForm.email.$invalid && loginForm.email.$dirty}">
-            <label for="" class="col-md-2 control-label">
-              邮箱：
-            </label>
-            <div class="col-md-10">
-              <input type="email" name="email" class="form-control" placeholder="推荐使用163邮箱" ng-model="user.email" required remotecheck>
-              <div ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
-                <span class="text-warning" ng-show="loginForm.email.$error.required">请输入您的邮箱地址</span>
-                <span class="text-danger" ng-show="loginForm.email.$error.email">无效的邮箱地址</span>
-              </div>
-            </div>
+<div class="login">
+  <div class="row">
+    <div class="col-md-12">
+      <div><h3>用户登录</h3></div>
+
+      <form action="{{formOption.action}}" class="form-horizontal" role="form" name="loginForm" ng-submit="signIn(loginForm.$valid)" ng-controller="UserLoginCtrl" novalidate>
+
+        <div class="form-group" ng-class="{'has-error': loginForm.email.$invalid && loginForm.email.$dirty}">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope"/></span>
+            <input type="email" name="email" class="form-control" placeholder="推荐使用163邮箱" ng-model="user.email" required >              
           </div>
-          <div class="form-group" ng-class="{'has-error': loginForm.password.$invalid && loginForm.password.$dirty}">
-            <label for="" class="col-md-2 control-label">
-              密码：
-            </label>
-            <div class="col-md-10">
-              <input type="password" name="password" class="form-control" placeholder="只能是数字、字母、下划线" ng-model="user.password" required>
-            </div>
+          <div ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+            <span class="text-warning" ng-show="loginForm.email.$error.required">请输入您的邮箱地址</span>
+            <span class="text-danger" ng-show="loginForm.email.$error.email">无效的邮箱地址</span>
           </div>
-          <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-              <div class="checkbox">
-                <label for=""><input type="checkbox" name="autoLogin" ng-model="user.autoLogin">自动登录</label>
-              </div>
-            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': loginForm.password.$invalid && loginForm.password.$dirty}">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-lock"/></span>       
+            <input type="password" name="password" class="form-control" placeholder="只能是数字、字母、下划线" ng-model="user.password" required>
           </div>
-          <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-              <button class="btn btn-primary" type="submit" ng-disabled="loginForm.$invalid">登录</button>
-              <button class="btn btn-default" type="reset">清空</button>
-            </div>
+        </div>
+
+        <div class="form-group">
+          <div class="text-left">
+            <input type="checkbox" icheck name="autoLogin" ng-model="user.autoLogin">&nbsp;自动登录
+            <a class="pull-right" href="{{formOption.forgetPwd}}">忘记密码</a>
           </div>
-        </form>
-      </div>
+        </div>
+        
+        <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="loginForm.$invalid">登录</button>
+        
+        <br/>
+        <p>还没有账户？</p>
+        <a href="{{formOption.signup}}" class="btn btn-default-outline btn-block">立即注册</a>
+      </form>
     </div>
   </div>
 </div>

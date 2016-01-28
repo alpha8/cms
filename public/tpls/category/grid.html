@@ -1,0 +1,38 @@
+<div class="animated fadeInRight">
+  <div class="row search-area">
+    <div class="col-xs-8 col-md-8">
+      <div class="row">
+        <form class="form-horizontal" role="form" name="categoryForm" >
+          <div class="col-xs-4 col-md-5">
+            <div class="form-group">
+              <label class="control-label hidden-xs hidden-sm col-md-4">分类名称：</label>
+              <div class="col-xs-12 col-md-8">
+                <input type="text" class="form-control" name="name" placeholder="分类名称" ng-model="category.name">
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-5">
+          </div>
+          <div class="col-xs-4 col-md-2">
+            <button class="btn btn-default" ng-click="search()"><i class="fa fa-search"></i>搜索</button>&nbsp;&nbsp;
+          </div>
+        </form>
+      </div>    
+    </div>
+
+    <div class="col-xs-4 col-md-4">
+      <div class="pull-right">
+        <div class="btn-group" role="group">
+          <a class="btn btn-default" ui-sref=".addCategory"><i class="fa fa-send-o"></i>新增</a>
+          <a ng-click="remove()" class="btn btn-default"><i class="fa fa-trash"></i>删除</a>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <div ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns class="grid"></div>
+    </div>
+  </div>
+</div>

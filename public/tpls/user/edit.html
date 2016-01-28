@@ -1,0 +1,74 @@
+<div class="row animated fadeInRight" ng-controller="EditUserCtrl">
+  <div class="col-xs-12 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a ng-click="discard()" href="javascript:;"><i class="backBtn fa fa-arrow-circle-left"></i></a>
+        <span class="panelTitle" ng-bind="UserForm.title"></span>
+      </div>
+      <div class="panel-body">
+        <form novalidate role="form" name="userForm" class="form-horizontal">
+          <div class="form-group" ng-class="{'has-error': userForm.userName.$invalid && userForm.userName.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">用户名：</label>
+            <div class="col-xs-7 col-md-8">
+              <input type="text" name="userName" class="form-control" placeholder="用户名" ng-model="user.name" required>
+            </div>
+            <div class="col-xs-2 col-md-2" ng-show="userForm.userName.$dirty && userForm.userName.$invalid">
+              <span class="text-danger" ng-show="userForm.userName.$error.required">请输入用户名</span>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{'has-error': userForm.gender.$invalid && userForm.gender.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">性别：</label>
+            <div class="col-xs-7 col-md-8">
+              <input icheck type="radio" name="gender" value="male" ng-model="user.gender">&nbsp;男&nbsp;&nbsp;
+              <input icheck type="radio" name="gender" value="female" ng-model="user.gender">&nbsp;女
+            </div>
+          </div>
+          <div class="form-group" ng-class="{'has-error': userForm.type.$invalid && userForm.type.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">用户类型：</label>
+            <div class="col-xs-7 col-md-8">
+              <select name="type" class="form-control" ng-model="user.type">
+                <option value="-1">----请选择----</option>
+                <option ng-repeat="item in user.typeList" value="{{item.value}}">{{item.text}}</option>
+              </select>
+            </div>            
+            <div class="col-xs-2 col-md-2" ng-show="userForm.type.$dirty && userForm.type.$invalid">
+              <span class="text-danger" ng-show="userForm.type.$error.required">请用户类型</span>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{'has-error': userForm.birthday.$invalid && userForm.birthday.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">出生年月：</label>
+            <div class="col-xs-7 col-md-8">
+              <input type="text" name="birthday" id="birthday" idate class="form-control" placeholder="出生年月" ng-model="user.birthday" required>              
+            </div>            
+            <div class="col-xs-2 col-md-2" ng-show="userForm.birthday.$dirty && userForm.birthday.$invalid">
+              <span class="text-danger" ng-show="userForm.birthday.$error.required">请录入出生年月</span>
+            </div>
+          </div>
+          <div class="col-xs-offset-2 col-md-offset-2 col-xs-offset-10 col-md-offset-10">
+            <button class="btn btn-primary" type="submit" ng-click="submitForm()">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>    
+  </div>
+</div>
+<script type="text/javascript">
+  laydate.skin('molv');
+
+  $("#birthday").addClass("laydate-icon").click(function(){
+    laydate({
+      elem:"#birthday",
+      format: 'YYYY-MM-DD', //日期格式
+      istime: false, //是否开启时间选择
+      isclear: true, //是否显示清空
+      istoday: true, //是否显示今天
+      issure: true, //是否显示确认
+      festival: true, //是否显示节日
+      fixed: false, //是否固定在可视区域
+      start: laydate.now(-1),    //开始日期
+      zIndex: 99999999, //css z-index
+      choose: function(dates){ //选择好日期的回调                   
+      }
+    });
+  });
+  </script>

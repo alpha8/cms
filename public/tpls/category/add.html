@@ -1,0 +1,42 @@
+<div class="row animated fadeInRight" ng-controller="AddCategoryCtrl">
+  <div class="col-xs-12 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a ng-click="discard()" href="javascript:;"><i class="backBtn fa fa-arrow-circle-left"></i></a>
+        <span class="panelTitle" ng-bind="CategoryForm.title"></span>
+      </div>
+      <div class="panel-body">
+        <form novalidate role="form" name="categoryForm" class="form-horizontal">
+          <div class="form-group" ng-class="{'has-error': categoryForm.parentId.$invalid && categoryForm.parentId.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">父级分类：</label>
+            <div class="col-xs-7 col-md-8">
+              <select class="form-control" name="parentId" required ng-model="category.parentId">
+                <option value="0">顶级分类</option>
+                <option ng-repeat="item in category.categoryList" value="{{item.id}}">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.name.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">分类名称：</label>
+            <div class="col-xs-7 col-md-8">
+              <input type="text" name="name" class="form-control" placeholder="分类名称" ng-model="category.name" required>
+            </div>
+            <div class="col-xs-2 col-md-2" ng-show="categoryForm.name.$dirty && categoryForm.name.$invalid">
+              <span class="text-danger" ng-show="categoryForm.name.$error.required">请输入分类名称</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-3 col-md-2 control-label">排序值：</label>
+            <div class="col-xs-7 col-md-8">
+              <input type="text" name="sort" class="form-control" placeholder="排序值" ng-model="category.sort">
+            </div>
+          </div>
+          
+          <div class="col-xs-offset-2 col-md-offset-2 col-xs-offset-10 col-md-offset-10">
+            <button class="btn btn-primary" type="submit" ng-click="submitForm()" ng-disabled="categoryForm.$invalid">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>    
+  </div>
+</div>

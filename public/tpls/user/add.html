@@ -1,0 +1,54 @@
+<div class="row animated fadeInRight" ng-controller="AddUserCtrl">
+  <div class="col-xs-12 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a ng-click="discard()" href="javascript:;"><i class="backBtn fa fa-arrow-circle-left"></i></a>
+        <span class="panelTitle" ng-bind="UserForm.title"></span>
+      </div>
+      <div class="panel-body">
+        <form novalidate role="form" name="userForm" class="form-horizontal">
+          <div class="form-group" ng-class="{'has-error': userForm.userName.$invalid && userForm.userName.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">用户名：</label>
+            <div class="col-xs-7 col-md-8">
+              <input type="text" name="userName" class="form-control" placeholder="用户名" ng-model="user.name" required>
+            </div>
+            <div class="col-xs-2 col-md-2" ng-show="userForm.userName.$dirty && userForm.userName.$invalid">
+              <span class="text-danger" ng-show="userForm.userName.$error.required">请输入用户名</span>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{'has-error': userForm.gender.$invalid && userForm.gender.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">性别：</label>
+            <div class="col-xs-7 col-md-8">
+              <input icheck type="radio" name="gender" value="male" ng-model="user.gender" required>&nbsp;男&nbsp;&nbsp;
+              <input icheck type="radio" name="gender" value="female" ng-model="user.gender" required>&nbsp;女
+            </div>
+          </div>
+          <div class="form-group" ng-class="{'has-error': userForm.type.$invalid && userForm.type.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">用户类型：</label>
+            <div class="col-xs-7 col-md-8">
+              <select name="type" class="form-control" ng-model="user.type">
+                <option value="">----请选择----</option>
+                <option ng-repeat="item in user.typeList" value="{{item.value}}">{{item.text}}</option>
+              </select>
+            </div>            
+            <div class="col-xs-2 col-md-2" ng-show="userForm.type.$dirty && userForm.type.$invalid">
+              <span class="text-danger" ng-show="userForm.type.$error.required">请用户类型</span>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{'has-error': userForm.birthday.$invalid && userForm.birthday.$dirty}">
+            <label class="col-xs-3 col-md-2 control-label">出生年月：</label>
+            <div class="col-xs-7 col-md-8">
+              <input type="text" name="birthday" id="birthday" idate class="form-control" placeholder="出生年月" ng-model="user.birthday" required>              
+            </div>                    
+            <div class="col-xs-2 col-md-2" ng-show="userForm.birthday.$dirty && userForm.birthday.$invalid">
+              <span class="text-danger" ng-show="userForm.birthday.$error.required">请录入出生年月</span>
+            </div>
+          </div>
+          <div class="col-xs-offset-2 col-md-offset-2 col-xs-offset-10 col-md-offset-10">
+            <button class="btn btn-primary" type="submit" ng-click="submitForm()"  ng-disabled="userForm.$invalid">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>    
+  </div>
+</div>

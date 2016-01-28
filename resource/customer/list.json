@@ -1,0 +1,42 @@
+{
+  "customers":[
+    {
+      "id":1,
+      "name":"李彦宏",
+      "avatar":"/images/avatar/robert-lee.jpg", 
+      "company":"百度技术有限公司",
+      "email":"robert@baidu.com", 
+      "status":2, 
+      "authType":"email",
+      "intro":"<p>李彦宏，百度公司创始人、董事长兼首席执行官，全面负责百度公司的战略规划和运营管理。</p><p>1991年，李彦宏毕业于北京大学信息管理专业，随后前往美国布法罗纽约州立大学完成计算机科学硕士学位，先后担任道·琼斯公司高级顾问、《华尔街日报》网络版实时金融信息系统设计者，以及国际知名互联网企业——Infoseek公司资深工程师。李彦宏所持有的“超链分析”技术专利，是奠定整个现代搜索引擎发展趋势和方向的基础发明之一。</p>"
+    },
+    {
+      "id":2,
+      "name":"雷军",
+      "avatar":"/images/avatar/leijun.jpg", 
+      "company":"小米技术有限公司",
+      "email":"ray@mi.com", 
+      "status":1, 
+      "authType":"email",
+      "intro":"<p>雷军，金山软件和小米公司创始人。</p>"
+    },
+    {
+      "id":3,
+      "name":"马云",
+      "avatar":"/images/avatar/mayun.jpg", 
+      "company":"阿里巴巴有限公司",
+      "email":"", 
+      "phone":"188****8888", 
+      "status":0, 
+      "authType":"phone",
+      "intro":"<p>马云， 阿里巴巴创始人。</p>"
+    }
+  ],
+  "company":[
+    {"id":1,"name":"百度技术有限公司", "city":"北京", "country":"中国", "status":2},
+    {"id":2,"name":"小米技术有限公司", "city":"广州", "country":"中国", "status":0},
+    {"id":3,"name":"阿里巴巴有限公司", "city":"杭州", "country":"中国", "status":1}
+  ],
+  "customerTotal":3,
+  "companyTotal":3
+}

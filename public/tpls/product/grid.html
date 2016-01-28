@@ -1,0 +1,100 @@
+<div class="animated fadeInRight">
+  <div class="row search-area">
+    <div class="col-xs-8 col-md-9">
+      <div class="row">
+        <form class="form-horizontal" role="form" name="productForm" >
+          <div class="col-xs-4 col-md-5">
+            <div class="form-group">
+              <label class="control-label hidden-xs hidden-sm col-md-4">作品名称：</label>
+              <div class="col-xs-12 col-md-8">
+                <input type="text" class="form-control" name="name" placeholder="作品名称" ng-model="artwork.name">
+              </div>
+            </div>
+            <div class="hideSearchItems">
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">作品类型：</label>
+                <div class="col-xs-12 col-md-8">
+                  <select class="form-control" name="type" ng-model="artwork.type">
+                    <option value="">----全部类型----</option>
+                    <option ng-repeat="item in artwork.typeList" value="{{item.id}}">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">价格：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control fl w80" name="minPrice" placeholder="最低价" ng-model="artwork.minPrice">
+                  <em class="fl spitter">--</em>
+                  <input type="text" class="form-control fl w80" name="maxPrice" placeholder="最高价" ng-model="artwork.maxPrice">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">上架时间：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control fl w120" id="beginShelvesTime" name="beginShelvesTime" placeholder="上架起始" idate ng-model="artwork.beginShelvesTime">
+                  <em class="fl spitter">--</em>
+                  <input type="text" class="form-control fl w120" id="endShelvesTime" name="endShelvesTime" placeholder="上架截止" idate ng-model="artwork.endShelvesTime">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-5">
+            <div class="form-group">
+              <label class="control-label hidden-xs hidden-sm col-md-4">艺术家：</label>
+              <div class="col-xs-12 col-md-8">
+                <input type="text" class="form-control" name="artworkAuthor" placeholder="艺术家" ng-model="artwork.artworkAuthor">
+              </div>
+            </div>
+            <div class="hideSearchItems">
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">作品类别：</label>
+                <div class="col-xs-12 col-md-8">
+                  <select class="form-control" name="artworkCategory" ng-model="artwork.artworkCategory">
+                    <option value="">----全部分类----</option>
+                    <option ng-repeat="item in artwork.categoryList" value="{{item.id}}">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">状态：</label>
+                <div class="col-xs-12 col-md-8">
+                  <select class="form-control" name="states" ng-model="artwork.states">
+                    <option value="">----全部----</option>
+                    <option ng-repeat="item in artwork.commodityStatesList" value="{{item.id}}">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">发布时间：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control fl w120" id="beginCreateTime" name="beginCreateTime" placeholder="发布起始" idate ng-model="artwork.beginCreateTime">
+                  <em class="fl spitter">--</em>
+                  <input type="text" class="form-control fl w120" id="endCreateTime" name="endCreateTime" placeholder="发布截止" idate ng-model="artwork.endCreateTime">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-2">
+            <button class="btn btn-default" ng-click="search()"><i class="fa fa-search"></i>搜索</button>&nbsp;&nbsp;
+            <a href="javascript:;" ng-click="advancedSearch()">高级搜索</a>
+          </div>
+        </form>
+      </div>    
+    </div>
+
+    <div class="col-xs-4 col-md-3">
+      <div class="pull-right">
+        <div class="btn-group" role="group">
+          <a ui-sref=".addProduct" class="btn btn-default"><i class="fa fa-plus-square rotate180"></i>新增</a>
+          <a ng-click="remove()" class="btn btn-default"><i class="fa fa-trash"></i>删除</a>
+          <a ui-sref="derivatives" class="btn btn-default"><i class="fa fa-gears"></i>衍生品管理</a>
+        </div>
+      </div>  
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <div ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns class="grid"></div>
+    </div>
+  </div>
+</div>

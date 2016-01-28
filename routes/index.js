@@ -138,4 +138,85 @@ router.get('/api/lang', function(req, res, next){
     res.status(500).send();
   }
 });
+
+router.get('/user/list/:userId', function(req, res, next){
+  var userId = req.params.userId;
+  if(!userId){
+    res.status(500).send();
+    return;
+  }
+
+  if(userId==='all'){
+    userId = 0;
+  }
+
+  try{
+    var users = require('../resource/user/'+userId+'.json');
+    res.send(users);
+  }catch(e){
+    res.status(500).send();
+  }
+});
+
+router.get('/article/list', function(req, res, next){
+  try{
+    var list = require('../resource/article/list.json');
+    res.send(list);
+  }catch(e){
+    res.status(500).send();
+  }
+});
+
+router.get('/user/search', function(req, res, next){
+  var resource = '0.json';
+  if(req.query.keyword){
+    resource = '1.json';
+  }
+  try{
+    var list = require('../resource/user/'+resource);
+    res.send(list);
+  }catch(e){
+    res.status(500).send();
+  }
+});
+
+router.get('/article/search', function(req, res, next){
+  var resource = 'list.json';
+  if(req.query.keyword){
+    resource = 'hits.json';
+  }
+  try{
+    var list = require('../resource/article/'+resource);
+    res.send(list);
+  }catch(e){
+    res.status(500).send();
+  }
+});
+
+router.get('/fm/list', function(req, res, next) {
+  try{
+    var list = require('../resource/files/list.json');
+    res.send(list);
+  }catch(e){
+    res.status(500).send();
+  }
+});
+
+router.get('/customer/list', function(req, res, next) {
+  try{
+    var list = require('../resource/customer/list.json');
+    res.send(list);
+  }catch(e){
+    res.status(500).send();
+  }
+});
+
+router.get('/product/list', function(req, res, next) {
+  try{
+    var list = require('../resource/product/list.json');
+    res.send(list);
+  }catch(e){
+    res.status(500).send();
+  }
+});
 module.exports = router;

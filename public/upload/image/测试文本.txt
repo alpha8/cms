@@ -1,0 +1,394 @@
+{
+“_id”: “30671”, //main item ID
+“department”: “Shoes”,
+“category”: “Shoes/Women/Pumps”,
+“brand”: “Calvin Klein”,
+“thumbnail”: “http://cdn.../pump.jpg”,
+“title”: “Evening Platform Pumps”,
+“description”: “Perfect for a casual night out or a formal event.”,
+“style”: “Designer”,
+…
+}
+
+通过ID得到商品：
+db.definition.findOne({_id:”301671”})
+
+通过一系列产品ID得到商品：
+db.definition.findOne({_id:{$in:[”301671”,”452318”]}})
+
+通过类别前缀得到商品：
+db.definition.findOne({category:/^Shoes\/Women/})
+
+另一个选择是创建一个能够关联到主商品的、单独的系列数据模型:
+{
+“_id”: ”93284847362823”, //variant sku
+“itemId”: “30671”, //references the main item
+“size”: 6.0,
+“color”: “red”
+…
+}
+
+这个数据模型允许我们通过它们的商品编号来快速检索到特定的商品系列：
+db.variation.find({_id:”93284847362823”})
+
+也可以通过对itemId  属性的查询获得某个特定商品的所有系列：
+db.variation.find({itemId:”30671”}).sort({_id:1})
+
+所有价格：db.prices.find({_id:/^30671/})
+某个特定店铺的价格：db.prices.find({_id:/^30671_store23/})
+
+db.prices.find({_id:{$in:[ “30671_store23”,
+“30671_sgroup12”,
+“93284847362823_store23”,
+“93284847362823_sgroup12” ]}})
+
+从商品ID获取摘要
+db.variation.find({_id:”30671”})
+
+获取特定商品系列的摘要
+db.variation.find({vars.sku:”93284847362823”},{“vars.$”:1})
+
+通过部门获取所有商品的摘要
+db.variation.find({department:”Shoes”})
+
+使用一系列混合的参数获取摘要
+db.variation.find({ “department”:”Shoes”,
+
+“vars.attr”: {“color”:”red”},
+
+“category”: “^/Shoes/Women”})
+
+店铺模式
+
+用户案例的一个基本需求是为每个店铺维护一个关于所有库存的、集中的、实时的视图。我们首先需要为店铺集合创建视图，从而将我们的库存与地理位置相联系起来。结果是：每个店铺都使用一个相当直接的文档。
+
+{
+
+“_id”:ObjectId(“78s89453d8chw28h428f2423”),
+
+“className”:”catalog.Store”,
+
+“storeId”:”store100”,
+
+“name”:”Bessemer Store”,
+
+“address”:{
+
+“addr1”:”1 Main St.”,
+
+“city”:”Bessemer”,
+
+“state”:”AL”,
+
+“zip”:”12345”,
+
+“country”:”USA”
+
+},
+
+“location”:[-86.95444, 33.40178],
+
+…
+
+}
+
+然后，我们可以创建下列的索引来优化在店铺数据中最经常使用读取类型：
+
+{“storeId”:1},{“unique”:true}: 获取某个特定商店的库存
+{“name”:1}:根据名字获取商店名称
+{“address.zip”:1}: 获取一个邮编内的所有店铺，例如：店铺定位程序
+{“location”: 2dsphere}:获取某一个特定地理位置周围的所有商店
+
+最近的店铺进行排序：
+
+db.runCommand({
+geoNear:“stores”,
+near:{
+type:”Point”,
+coordinates:[-82.8006,40.0908], //GeoJSON or coordinate pair
+maxDistance:10000.0, //in meters
+spherical:true //required for 2dsphere indexes
+}
+})
+
+库存数据模型
+
+既然我们已经将商品和店铺联系了起来，我们需要创建一个库存集合来跟踪每一个商品以及它们所有商品系列的真实库存量。然而，我们需要在其中进行一定的取舍。为了同时最小化对数据库的来回读取数目，同时降低应用级的连接，我们决定将数据从店铺集合复制到库存集合。我们提出的文档是这样的：
+
+{
+“_id”:”902372093572409542jbf42r2f2432”,
+“storeId”:”store100”,
+“location”:[-86.95444, 33.40178],
+“productId”:”20034”,
+“vars”:[
+{“sku”:”sku1”, “quantity”:”5”},
+{“sku”:”sku2”, “quantity”:”23”},
+{“sku”:”sku3”, “quantity”:”2”},
+…
+]
+}
+
+db.inventory.find(
+{
+“storeId”:”store100”,
+“productId”:“20034”,
+“vars.sku”:”sku11736”
+},
+{“vars.$”:1}
+)
+
+库存更新及聚合
+
+一个好的库存系统不应该只是一个检索静态数据的记录系统。我们还需要能够在库存上执行一些操作，包括当库存变化时对数据记录的修改以及为获得产品目前可用库存及库存地点完整视图而做的聚合操作。
+
+其中的第一个操作——更新库存，是一个非常直接的并且和一个标准查询一样高效的，这就意味着我们的库存系统需要能够处理我们预计接收到的大数据量。为了使用MongoDB实现这个功能，我们简单地通过它的‘productId’来检索一个商品，然后使用$inc操作符在我们希望更新的产品系列上执行一个即时更新。
+
+ db.inventory.update(
+{
+  “storeId”:”store100”,
+  “productId”:“20034”,
+  “vars.sku”:”sku11736”
+},
+  {“$inc”:{“vars.$.q”:20}}
+)
+针对于库存的聚合统计，MongoDB的聚合管道框架允许让我们获取一系列查询结果并且这些结果应用多阶段的数据转化功能。通过这种方式为我们提供了许多除了单店库存之外的更有价值的数据视图。例如，假设我们想要找出某个产品所有系列在所有店铺中的库存量。为了得到这个结果，我们可以创建一个聚合请求：
+
+ 
+ db.inventory.aggregate([
+  {$match:{productId:”20034”},
+  {$unwind:”$vars”},
+  {$group:{
+      _id:”$result”,
+      count:{$sum:”$vars.q”}
+    }}
+])
+在这里，我们从所有店铺中检索某个指定产品的库存，然后使用$unwind操作符将我们的系列数组扩展到一系列文档中，然后再进行分组和求和。这样的操作为我们提供了每个系列的总库存量：
+
+{“_id”: “result”, “count”: 101752}
+
+基于位置的库存查询
+db.runCommand({
+
+geoNear:”inventory”,
+
+near:{
+
+type:”Point”,
+
+coordinates:[-82.8006,40.0908]},
+
+maxDistance:10000,
+
+spherical:true,
+
+limit:10,
+
+query:{“productId”:”20034”,
+
+“vars.sku”:”sku1736”}})
+或者是有他们搜索的这个产品存货的、距离最近的前十个商店：
+
+db.runCommand({
+
+geoNear:”inventory”,
+
+near:{
+
+type:”Point”,
+
+coordinates:[-82.8006,40.0908]},
+
+maxDistance:10000,
+
+spherical:true,
+
+limit:10,
+
+query:{“productId”:”20034”,
+
+“vars”:{
+
+$elemMatch:{”sku1736”, //returns only documents with this sku in the vars array
+
+quantity:{$gt:0}}}}}) //quantity greater than 0
+
+片键
+
+当然，在设计任何分片系统时，我们需要仔细考虑使用什么片键。在这种情况下，我们有两个理由选择{storeId:1},{productId:1}。其一，使用‘storeId’确保每个店铺的所有库存都写入到相同分片。第二点，基数。单独使用‘storeId’将会存在问题，因为即使我们有数以百计的店铺，我们将会使用一个相对低基数的片键，一个很明显的问题在于：如果我们处理亿万甚至十亿产品的库存时，将会导致不平衡的集群。解决方案是在片键中将’productId’也包括进去，这就给予了我们想要的基数，我们的库存将会增长到多个分片在每个区域中需要的大小。
+
+分片标签
+
+配置拓扑的最后一步是确保请求被送往本地数据中心的合适分片。为了实现这个功能，我们利用MongoDB中基于标签分片（Tag Aware Sharding)的优点——将一系列分片键值与一个特定的分片或者分片组联系起来。首先，我们为每个区域中的主分片创建一个标签：
+
+- sh.addShardTag(“shard001”,”west”)
+- sh.addShardTag(“shard002”,”central”)
+- sh.addShardTag(“shard003”,”east”)
+然后，将这些标签中的每一个都赋值给相同区域中的一系列商店：
+
+- sh.addTagRange(“inventoryDB.inventory”),{storeId:0},{storeId:100},”west”)
+- sh.addTagRange(“inventoryDB.inventory”),{storeId:100},{storeId:200},”central”)
+- sh.addTagRange(“inventoryDB.inventory”),{storeId:200},{storeId:300},”east”)
+在现实情况下，店铺也许不会整齐地落在每个区域的范围内，但是由于我们可以给任何一个店铺赋予我们想要的任何标签，直到将一个单一的店铺ID赋予到一个标签的级别。这样的做法保证了即使是在店铺ID都不连续的情况下也可以灵活的满足需求。在这里，为了简洁起见，我们在参考架构中只是简单地通过范围来定义了标签的范围。
+
+{        _id: ObjectId(),
+
+geoCode: 1, // used to localize write operations
+
+sessionId: “2373BB…", // tracks activities across sessions
+
+device: { id: “1234", // tracks activities across different user devices
+
+type: "mobile/iphone",
+
+userAgent: "Chrome/34.0.1847.131"
+
+}
+
+type: "VIEW|CART_ADD|CART_REMOVE|ORDER|…", // type of activity
+
+itemId: “301671", // item that was viewed, added to cart, etc.
+
+sku: “730223104376", //item sku
+
+order: { id: “12520185", // info about orders associated with the activity
+
+… },
+
+location: [ -86.95444, 33.40178 ], //user’s location when the activity was performed
+
+tags: [ "smartphone", "iphone", … ], // associated tags
+
+timeStamp: Date("2014/04/01 …”) // time the activity was performed
+
+}
+
+一个用户最近的行为：
+db.activity.find({ userId: “u123”,ts: {“$g”t:1301284969946, // time bound the query
+
+“$lt”: 1425657300} })
+
+.sort({ time: -1 }).limit(100) // sort in desc order
+一个产品最近的行为：
+db.activity.find({ itemId: “301671", // requires a secondary index on timestamp + itemId
+
+ts: {“$g”t:1301284969946,
+
+“$lt”: 1425657300} })
+
+.sort({ time: -1 }).limit(100)
+
+用户最近的浏览数及购买数等
+db.activities.aggregate(([{ $match: { userId: "u123", ts: { $gt: DATE }}}, // get a time bound set of activities for a user
+
+{ $group: { _id: "$type", count: { $sum: 1 }}}]) // group and sum the results by activity type
+一个用户最近的总购买量
+db.activities.aggregate(([
+
+{ $match: { userId:"u123", ts:{$gt:DATE}, type:"ORDER"}},
+
+{ $group: { _id: "result", count: {$sum: "$total" }}}]) // sum the total of all orders
+
+
+一个产品最近的浏览数及购买数等
+db.activities.aggregate(([
+
+{ $match: { itemId: "301671", ts: { $gt: DATE }}},
+
+{ $group: { _id: "$type", count: { $sum: 1 }}}])
+
+
+Map-reduce
+
+使用MongoDB进行分析的另一个选择是使用map-reduce。与聚合框架相比，它对非常庞大的数据集而言是一个极佳的选择。这里有几个原因。以下面使用聚合计算所有单一访问者在过去一小时内某个行为的次数为例：
+
+db.activities.aggregate(([
+
+{ $match: { time: { $gt: NOW-1H } }},
+
+{ $group: { _id: "$userId", count: {$sum: 1} } }],
+
+{ allowDiskUse: 1 })
+
+
+var map = function() { emit(this.userId, 1); } // emit samples by userId with value of 1
+
+var reduce = function(key, values)
+
+{ return Array.sum(values); } // sum the total samples per user
+
+db.activities.mapreduce(map, reduce,
+
+{ query: { time: { $gt: NOW-1H } }, // time bound the query to the last hour
+
+out: { replace: "lastHourUniques", sharded: true }) // persist the output to a collection
+
+某个用户在过去一小时内的活动数
+db.lastHourUniques.find({ userId: "u123" })
+过去一小时内的总数
+db.lastHourUniques.count()
+
+
+交叉销售
+
+现在，将所有内容整合。我们的分析最有价值的特性之一是能够为用户提供交叉销售产品的能力。例如，假设某个用户购买了一个新的iPhone。那么这里就有大量相关的、他也许有可能想购买的产品，例如保护套、屏幕保护膜以及耳机等等。通过分析用户的行为数据，我们可以真实地了解到哪些相关产品通常会被一起购买，然后将它们展示给相关用户以推动额外产品的销售。下面是我们如何实现的。
+
+首先，我们计算某个用户购买的产品：
+
+var map = function() { emit(userId, this.itemId); }
+// emit samples as userId: itemId
+
+var reduce = function(key, values)
+
+{ return values; } // Return the array of itemIds the user has bought
+
+db.activities.mapReduce(map, reduce,
+
+{ query: { type: “ORDER”, time: { $gt: NOW-24H }}, // include only activities of type order int he last day
+
+out: { replace: "lastDayOrders", sharded: true }) // persist the output to a collection
+这将会返回一个包含了类似下面的文档输出集合：
+
+{ _id: "u123", items: [ 2, 3, 8 ] }
+接下来，我们在输出的‘lastDayOrders’集合上运行一个辅助map-reduce工作，以计算每个产品对的出现次数：
+
+var map = function() {
+
+for (i = 0; i < this.items.length; i++) {
+
+for (j = i + 1; j <= this.items.length; j++) {
+
+emit({a: this.items[i] ,b: this.items[j] }, 1); // emit each item pair
+
+}
+
+}
+
+}
+
+ 
+
+var reduce = function(key, values)
+
+{ return Array.sum(values); } // Sum all occurrences of each item pair
+
+ 
+
+db.lastDayOrders.mapReduce(map, reduce,
+
+{out: { replace: "pairs", sharded: true }) // persist the output to a collection
+这将会返回给我们一个包含了每个产品集被一起订购的次数统计输出集合。这个集合包含了类似于下面的文档：
+
+{ _id: { a: 2, b: 3 }, value: 36 }
+在这里，所有我们需要做的就是在每个产品和它们的计数上创建一个二级索引，例如：.{_id.a:”u123”, count:36}.。这将确定哪些产品用于交叉销售变成了一个检索这些最经常被一起订购的产品的简单查询。在下面的例子中，我们只检索那些和itemId为u123一起被订购次数超过10次的产品，然后使用降序进行排列：
+
+db.pairs.find( { _id.a: "u123", count: { $gt: 10 }} )
+
+.sort({ count: -1 })
+我们也可以通过在一个单独的集合中对最受欢迎的产品对进行分组来使得数据变得更加紧密，例如：
+
+{ itemId: 2, recom: [ { itemId: 32, weight: 36},
+
+{ itemId: 158, weight: 23},
+
+… ] }
+

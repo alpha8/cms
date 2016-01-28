@@ -1,0 +1,47 @@
+[{
+  "id":1,
+  "name":"话禅",
+  "price":999999.99,
+  "category":{
+    "id":1,
+    "name":"书法"
+  },
+  "artist":"马云",
+  "sku":1,
+  "buildDate":2015,
+  "specs":"80cm*80cm",
+  "createTime":"2015-12-01 09:00:00",
+  "updateTime":"2015-12-01 09:00:00",
+  "status":"已上架",
+  "isRecommend":1,
+  "pv":1000,
+  "like":189,
+  "sort":1,
+  "user":{
+    "id":1,
+    "name":"admin"
+  }
+},{
+  "id":2,
+  "name":"桃花源",
+  "price":1299999.00,
+  "category":{
+    "id":2,
+    "name":"油画"
+  },
+  "sku":1,
+  "buildDate":2015,
+  "specs":"180cm*80cm",
+  "artist":"马云",
+  "createTime":"2015-12-01 09:00:00",
+  "updateTime":"2015-12-01 09:00:00",
+  "status":"已上架",
+  "isRecommend":1,
+  "pv":2000,
+  "like":999,
+  "sort":1,
+  "user":{
+    "id":1,
+    "name":"admin"
+  }
+}]

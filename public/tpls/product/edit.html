@@ -1,0 +1,119 @@
+<div class="row animated fadeInRight">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a ng-click="discard()" href="javascript:;"><i class="backBtn fa fa-arrow-circle-left"></i></a>
+      <span class="panelTitle" ng-bind="ProductForm.title"></span>
+    </div>
+    <div class="panel-body">
+      <form novalidate name="productForm" class="form-horizontal" role="form">
+        <div class="form-group" ng-class="{'has-error': productForm.name.$invalid && productForm.name.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">作品名称：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="text" class="form-control" name="name" placeholder="作品名称" ng-model="artwork.name" required>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': productForm.author.$invalid && productForm.author.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">艺术家：</label>
+          <div class=" col-xs-7 col-md-8">
+            <select class="form-control" name="author" required ng-model="artwork.author">
+              <option value="">----选择艺术家----</option>
+              <option ng-repeat="item in artwork.artistList" value="{{item.id}}">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': productForm.category.$invalid && productForm.category.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">作品类别：</label>
+          <div class=" col-xs-7 col-md-8">
+            <select class="form-control" name="category" required ng-model="artwork.category">
+              <option value="">----选择分类----</option>
+              <option ng-repeat="item in artwork.categoryList" value="{{item.id}}">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">作品类型：</label>
+          <div class=" col-xs-7 col-md-8">
+            <select class="form-control" name="type" required ng-model="artwork.type">
+              <option value="">----选择类型----</option>
+              <option ng-repeat="item in artwork.typeList" value="{{item.id}}">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">作品售价：</label>
+          <div class=" col-xs-7 col-md-8">
+           <input type="text" class="form-control" name="price" placeholder="作品售价" ng-model="artwork.price" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">作品规格：</label>
+          <div class=" col-xs-7 col-md-8">
+           <input type="number" class="form-control fl w80" name="long_" placeholder="长" ng-model="artwork.long_" required>
+           <input type="number" class="form-control fl w80" name="widht" placeholder="宽" ng-model="artwork.widht" required>
+           <input type="text" class="form-control fl w80" name="unit" placeholder="单位" ng-model="artwork.unit" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">作品图片：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="file" class="form-control" name="icon" placeholder="上传图片" ng-model="artwork.icon">
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': productForm.content.$invalid && productForm.content.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">作品介绍：</label>
+          <div class="col-xs-7 col-md-8">
+            <textarea name="content" placeholder="发表的文章内容" id="editor" ng-model="artwork.content" keditor data-config="options" required>
+            </textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">标签：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="text" class="form-control" name="keyword" placeholder="使用空格分隔不同标签" ng-model="artwork.keyword">
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': productForm.status.$invalid && productForm.status.$dirty}">
+          <label class="control-label col-xs-2 col-md-2">状态：</label>
+          <div class=" col-xs-7 col-md-8">
+            <select class="form-control" name="status" required ng-model="artwork.status">
+              <option value="">----请选择----</option>
+              <option ng-repeat="item in artwork.commodityStatesList" value="{{item.id}}">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">文章排序：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="number" class="form-control" name="sorts" placeholder="排序值" ng-model="artwork.sorts">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">浏览数：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="number" class="form-control" name="pv" placeholder="浏览数" ng-model="artwork.pv">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">收藏数：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="number" class="form-control" name="like" placeholder="收藏数" ng-model="artwork.like">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-2 col-md-2">其它设置：</label>
+          <div class=" col-xs-7 col-md-8">
+            <input type="checkbox" name="isRecommend" icheck ng-model="artwork.isRecommend">推荐
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-4 col-xs-offset-2">
+            <button class="btn btn-primary" ng-click="submitForm()" ng-disabled="productForm.$invalid">保存</button>
+            <button class="btn btn-white" ng-click="discard()">取消</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="/libs/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="/libs/kindeditor/lang/zh-CN.js" type="text/javascript"></script>

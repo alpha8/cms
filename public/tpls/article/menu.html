@@ -1,0 +1,13 @@
+<div class="row" ng-controller="LeftNavCtrl">
+  <div class="col-xs-12 col-md-12 leftNav">
+    <uib-accordion>           
+      <uib-accordion-group heading="{{menu.title}}" ng-repeat="menu in navMenu" is-open="menu.isFirstOpen">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="subMenu in menu.children">
+            <a ui-sref="{{subMenu.link}}"><i class="{{subMenu.icon}}"></i>{{subMenu.text}}</a>
+          </li>
+        </ul>  
+      </uib-accordion-group>             
+    </uib-accordion>
+  </div>
+</div>

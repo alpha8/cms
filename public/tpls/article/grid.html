@@ -1,0 +1,77 @@
+<div class="animated fadeInRight">
+  <div class="row search-area">
+    <div class="col-xs-8 col-md-8">
+      <div class="row">
+        <form class="form-horizontal" role="form" name="articleForm" >
+          <div class="col-xs-4 col-md-5">
+            <div class="form-group">
+              <label class="control-label hidden-xs hidden-sm col-md-4">文章标题：</label>
+              <div class="col-xs-12 col-md-8">
+                <input type="text" class="form-control" name="title" placeholder="文章标题" ng-model="article.title">
+              </div>
+            </div>
+            <div class="hideSearchItems">
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">状态：</label>
+                <div class="col-xs-12 col-md-8">
+                  <select class="form-control" name="status" ng-model="article.status">
+                    <option value="">----全部----</option>
+                    <option ng-repeat="item in article.statusList" value="{{item.id}}">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">发布时间：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control fl w120" id="beginPublishTime" name="beginPublishTime" placeholder="发布起始" idate ng-model="article.beginPublishTime">
+                  <em class="fl spitter">--</em>
+                  <input type="text" class="form-control fl w120" id="endPublishTime" name="endPublishTime" placeholder="发布截止" idate ng-model="article.endPublishTime">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-5">
+            <div class="form-group">
+              <label class="control-label hidden-xs hidden-sm col-md-4">文章分类：</label>
+              <div class="col-xs-12 col-md-8">
+                <select class="form-control" name="category" ng-model="article.category">
+                  <option value="">----全部分类----</option>
+                  <option ng-repeat="item in article.categoryList" value="{{item.value}}">{{item.text}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="hideSearchItems">
+              <div class="form-group">
+                <label class="control-label hidden-xs hidden-sm col-md-4">标签：</label>
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control" name="tags" placeholder="标签" ng-model="article.tags">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-2">
+            <button class="btn btn-default" ng-click="search()"><i class="fa fa-search"></i>搜索</button>&nbsp;&nbsp;
+            <a href="javascript:;" ng-click="advancedSearch()">高级搜索</a>
+          </div>
+        </form>
+      </div>    
+    </div>
+
+    <div class="col-xs-4 col-md-4">
+      <div class="pull-right">
+        <div class="btn-group" role="group">
+          <a class="btn btn-default" ui-sref=".addArticle"><i class="fa fa-send-o"></i>新增文章</a>
+          <a ng-click="remove()" class="btn btn-default"><i class="fa fa-trash"></i>删除</a>
+          <a ui-sref="categories" class="btn btn-default"><i class="fa fa-gears"></i>分类管理</a>
+          <a ui-sref="categories.addCategory" class="btn btn-default"><i class="fa fa-plus-square rotate180"></i>新增分类</a>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <div ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns class="grid"></div>
+    </div>
+  </div>
+</div>
